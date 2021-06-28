@@ -1,0 +1,36 @@
+baseURL = "https://bseb.io"
+languageCode = "en-us"
+title = "Ben Sebastian"
+theme = "m10c"
+
+[menu]
+[[menu.main]]
+identifier = "Blog"
+name = "Blog"
+url = "/"
+
+[[menu.main]]
+identifier = "Resume"
+name = "Resume"
+url = "/resume/"
+
+[params]
+author = "Ben Sebastian"
+avatar = "avatar.jpg"
+favicon = "avatar.jpg"
+description = "Hacking, Infosec, General Geekery and Other Stuff"
+
+[[params.social]]
+icon = "github"
+name = "Github"
+url = "https://github.com/bseb"
+
+[[params.social]]
+icon = "twitter"
+name = "Twitter"
+url = "https://twitter.com/usernamepun"
+
+[[params.social]]
+icon = "linkedin"
+name = "LinkedIn"
+url = "https://www.linkedin.com/in/bseb"
