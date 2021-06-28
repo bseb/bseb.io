@@ -1,4 +1,4 @@
-baseURL = "https://bseb.io"
+baseURL = "/"
 languageCode = "en-us"
 title = "Ben Sebastian"
 theme = "m10c"
