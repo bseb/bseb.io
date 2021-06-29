@@ -21,7 +21,7 @@ Jenkins, TravisCI
 - Splunk SIEM
 - Kubernetes
 
-## Certifications
+## CERTIFICATIONS
 
 - CISSP – Certification number 763223
 - Red Hat Certified Engineer (expired)
