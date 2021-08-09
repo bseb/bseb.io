@@ -2,17 +2,26 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Blogs on Ben Sebastian</title>
-    <link>https://bseb.io/blog/</link>
+    <link>/blog/</link>
     <description>Recent content in Blogs on Ben Sebastian</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 27 Jun 2021 20:13:03 -0400</lastBuildDate><atom:link href="https://bseb.io/blog/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Jun 2021 19:58:24 -0400</lastBuildDate><atom:link href="/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Disposable Kali Environments with Vagrant and Ansible</title>
+      <link>/blog/kali-vagrant/</link>
+      <pubDate>Tue, 29 Jun 2021 19:58:24 -0400</pubDate>
+      
+      <guid>/blog/kali-vagrant/</guid>
+      <description>The Problem As I&amp;rsquo;ve spent time working in Kali Linux I&amp;rsquo;ve noticed that, due to the nature of the work done, the installation seems to &amp;ldquo;rot&amp;rdquo; a bit faster than average. Let&amp;rsquo;s face it, we install strange libraries and packages, do horrible things to networking, and generally just abuse the install. This is unfortunate, as getting Kali configured just the way you want it can take a little doing and spending time reinstalling everything sucks.</description>
+    </item>
+    
     <item>
       <title>New Site</title>
-      <link>https://bseb.io/blog/new-site/</link>
+      <link>/blog/new-site/</link>
       <pubDate>Sun, 27 Jun 2021 20:13:03 -0400</pubDate>
       
-      <guid>https://bseb.io/blog/new-site/</guid>
+      <guid>/blog/new-site/</guid>
       <description>Welcome! You&amp;rsquo;ve somehow stumbled across my site, (probably because I sent you a link). I created this blog as a way to share interesting tidbits I learn and things I&amp;rsquo;m still learning about. Nothing is quite as good a teacher as having to teach someone else.
 My plan is to create articles about penetration tools and techniques, cyber-security news, HackTheBox writeups, bug bounty info and whatever else is interesting in the space.</description>
     </item>

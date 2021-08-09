@@ -2,20 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://bseb.io/</loc>
+    <loc>/</loc>
+    <lastmod>2021-06-29T19:58:24-04:00</lastmod>
+  </url><url>
+    <loc>/blog/</loc>
+    <lastmod>2021-06-29T19:58:24-04:00</lastmod>
+  </url><url>
+    <loc>/blog/kali-vagrant/</loc>
+    <lastmod>2021-06-29T19:58:24-04:00</lastmod>
+  </url><url>
+    <loc>/blog/new-site/</loc>
     <lastmod>2021-06-27T20:13:03-04:00</lastmod>
   </url><url>
-    <loc>https://bseb.io/blog/</loc>
-    <lastmod>2021-06-27T20:13:03-04:00</lastmod>
-  </url><url>
-    <loc>https://bseb.io/blog/new-site/</loc>
-    <lastmod>2021-06-27T20:13:03-04:00</lastmod>
-  </url><url>
-    <loc>https://bseb.io/resume/</loc>
+    <loc>/resume/</loc>
     <lastmod>2020-06-27T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://bseb.io/categories/</loc>
+    <loc>/categories/</loc>
   </url><url>
-    <loc>https://bseb.io/tags/</loc>
+    <loc>/tags/</loc>
   </url>
 </urlset>
