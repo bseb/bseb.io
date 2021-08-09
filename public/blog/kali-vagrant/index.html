@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <title>Disposable Kali Environments with Vagrant and Ansible // Ben Sebastian</title>
+    <link rel="shortcut icon" href="avatar.jpg" />
+    <meta charset="utf-8" />
+    <meta name="generator" content="Hugo 0.84.1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="author" content="Ben Sebastian" />
+    <meta name="description" content="" />
+    <link rel="stylesheet" href="/css/main.min.88e7083eff65effb7485b6e6f38d10afbec25093a6fac42d734ce9024d3defbd.css" />
+
+    
+    <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Disposable Kali Environments with Vagrant and Ansible"/>
+<meta name="twitter:description" content="The Problem As I&rsquo;ve spent time working in Kali Linux I&rsquo;ve noticed that, due to the nature of the work done, the installation seems to &ldquo;rot&rdquo; a bit faster than average. Let&rsquo;s face it, we install strange libraries and packages, do horrible things to networking, and generally just abuse the install. This is unfortunate, as getting Kali configured just the way you want it can take a little doing and spending time reinstalling everything sucks."/>
+
+    <meta property="og:title" content="Disposable Kali Environments with Vagrant and Ansible" />
+<meta property="og:description" content="The Problem As I&rsquo;ve spent time working in Kali Linux I&rsquo;ve noticed that, due to the nature of the work done, the installation seems to &ldquo;rot&rdquo; a bit faster than average. Let&rsquo;s face it, we install strange libraries and packages, do horrible things to networking, and generally just abuse the install. This is unfortunate, as getting Kali configured just the way you want it can take a little doing and spending time reinstalling everything sucks." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/blog/kali-vagrant/" /><meta property="article:section" content="blog" />
+<meta property="article:published_time" content="2021-06-29T19:58:24-04:00" />
+<meta property="article:modified_time" content="2021-06-29T19:58:24-04:00" />
+
+
+
+  </head>
+  <body>
+    <header class="app-header">
+      <a href="/"><img class="app-header-avatar" src="/avatar.jpg" alt="Ben Sebastian" /></a>
+      <h1>Ben Sebastian</h1>
+      <nav class="app-header-menu">
+          <a class="app-header-menu-item" href="/">Blog</a>
+             - 
+          
+          <a class="app-header-menu-item" href="/resume/">Resume</a>
+      </nav>
+      <p>Hacking, Infosec, General Geekery and Other Stuff</p>
+      <div class="app-header-social">
+        
+          <a href="https://github.com/bseb" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-github">
+  <title>Github</title>
+  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+</svg>
+          </a>
+        
+          <a href="https://twitter.com/usernamepun" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-twitter">
+  <title>Twitter</title>
+  <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+</svg>
+          </a>
+        
+          <a href="https://www.linkedin.com/in/bseb" target="_blank" rel="noreferrer noopener">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-linkedin">
+  <title>LinkedIn</title>
+  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>
+</svg>
+          </a>
+        
+      </div>
+    </header>
+    <main class="app-container">
+      
+  <article class="post">
+    <header class="post-header">
+      <h1 class ="post-title">Disposable Kali Environments with Vagrant and Ansible</h1>
+      <div class="post-meta">
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-calendar">
+  <title>calendar</title>
+  <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line>
+</svg>
+          Jun 29, 2021
+        </div>
+        <div>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-clock">
+  <title>clock</title>
+  <circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline>
+</svg>
+          4 min read
+        </div>
+      </div>
+    </header>
+    <div class="post-content">
+      <h2 id="the-problem">The Problem</h2>
+<p>As I&rsquo;ve spent time working in Kali Linux I&rsquo;ve noticed that, due to the nature of the work done, the installation seems to &ldquo;rot&rdquo; a bit faster than average. Let&rsquo;s face it, we install strange libraries and packages, do horrible things to networking, and generally just abuse the install. This is unfortunate, as getting Kali configured just the way you want it can take a little doing and spending time reinstalling everything sucks.</p>
+<p>This is where Vagrant and Ansible can help. Leveraging these two tools in concert can give you the ability to nuke and pave your Kali instance in a matter of minutes, including getting it back to the configuration you like.</p>
+<h2 id="install-vagrant-and-ansible">Install Vagrant and Ansible</h2>
+<p>Checkout <a href="https://www.vagrantup.com/docs/installation">Vagrant&rsquo;s Docs</a> for install directions. It&rsquo;s worth noting that this post is written with *nix operating systems in mind, your milage may vary when using Windows. You&rsquo;ll want to install Vagrant and Virtualbox before continuing.</p>
+<p>Ansible can be installed via most Linux distributions or on MacOS via <a href="https://brew.sh/">Homebrew</a></p>
+<h2 id="download-kalis-vagrantfile">Download Kali&rsquo;s Vagrantfile</h2>
+<p>Our next step is to grab the Kali Linux Vagrantfile. A Vagrantfile contains all the configuration needed for Vagrant to spin up a Kali VM. This is as easy as running the command <code>vagrant init kalilinux/rolling</code> from the directory you want to store the configuration for this Vagrant VM.</p>
+<h2 id="modify-vagrantfile">Modify Vagrantfile</h2>
+<p>Now that we have the Vagrantfile, lets make a few changes that will make life much easier. I&rsquo;ve pasted below some snippets of changes I made to the Kali Vagrantfile including some comments to explain the changes.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ruby" data-lang="ruby"><span style="color:#66d9ef">Vagrant</span><span style="color:#f92672">.</span>configure(<span style="color:#e6db74">&#34;2&#34;</span>) <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>config<span style="color:#f92672">|</span>
+  <span style="color:#75715e"># The most common configuration options are documented and commented below.</span>
+  <span style="color:#75715e"># For a complete reference, please see the online documentation at</span>
+  <span style="color:#75715e"># https://docs.vagrantup.com.</span>
+
+<span style="color:#f92672">----</span> snip <span style="color:#f92672">-----</span>
+
+  <span style="color:#75715e"># Share an additional folder to the guest VM. The first argument is</span>
+  <span style="color:#75715e"># the path on the host to the actual folder. The second argument is</span>
+  <span style="color:#75715e"># the path on the guest to mount the folder. And the optional third</span>
+  <span style="color:#75715e"># argument is a set of non-required options.</span>
+   config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>synced_folder <span style="color:#e6db74">&#34;~/workspace&#34;</span>, <span style="color:#e6db74">&#34;/root/workspace&#34;</span>  <span style="color:#75715e"># Instead of the default shared folder which is the directory on your host machine mounted to /vagrant in the VM I prefer my &#34;workspace&#34; directory. This is simply the location of all my projects, cloned repos and the like</span>
+
+<span style="color:#f92672">-----</span> snip <span style="color:#f92672">-----</span>
+
+  config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provider <span style="color:#e6db74">&#34;virtualbox&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>vb<span style="color:#f92672">|</span>
+  <span style="color:#75715e">#   # Display the VirtualBox GUI when booting the machine</span>
+  <span style="color:#75715e">#   vb.gui = true</span>
+  <span style="color:#75715e">#</span>
+  <span style="color:#75715e">#   # Customize the amount of memory on the VM:</span>
+     vb<span style="color:#f92672">.</span>memory <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;16384&#34;</span>      <span style="color:#75715e"># Uncomment these lines, and increase memory. the 1G default wont cut it. I did 16G, but my machine has 64G of memory. Allocate as much as you think you can spare</span>
+   <span style="color:#66d9ef">end</span>
+  <span style="color:#75715e">#</span>
+
+<span style="color:#f92672">---</span> snip <span style="color:#f92672">----</span>
+
+    config<span style="color:#f92672">.</span>vm<span style="color:#f92672">.</span>provision <span style="color:#e6db74">&#34;ansible&#34;</span> <span style="color:#66d9ef">do</span> <span style="color:#f92672">|</span>ansible<span style="color:#f92672">|</span> <span style="color:#75715e"># Ansible provisioner, we will talk about this in the next step</span>
+      ansible<span style="color:#f92672">.</span>playbook <span style="color:#f92672">=</span> <span style="color:#e6db74">&#34;provision.yaml&#34;</span>
+      ansible<span style="color:#f92672">.</span>extra_vars <span style="color:#f92672">=</span> { <span style="color:#e6db74">ansible_python_interpreter</span>:<span style="color:#e6db74">&#34;/usr/bin/python3&#34;</span> } <span style="color:#75715e"># This line is important as /usr/bin/python in Kali is still Python2, which wont play nice with Ansible</span>
+    <span style="color:#66d9ef">end</span>
+<span style="color:#66d9ef">end</span>
+
+
+</code></pre></div><h2 id="ansible-provisioning-playbook">Ansible Provisioning Playbook</h2>
+<p>We configured the Ansible provisioner in Vagrant to run a playbook called &ldquo;provision.yaml&rdquo;. Since we didn&rsquo;t specifiy a path to the playbook, Vagrant will look in the same directory the Vagrantfile is in. This playbook can do anything Ansible is capable of. I&rsquo;ve shared a portion of mine below to get you started, but you&rsquo;ll likely want your own configuration.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-yaml" data-lang="yaml">---
+- <span style="color:#f92672">hosts</span>: <span style="color:#ae81ff">all</span>
+  <span style="color:#f92672">become</span>: <span style="color:#66d9ef">yes</span>
+  <span style="color:#f92672">tasks</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Update apt cache</span>
+      <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">apt update</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Update all packages</span>
+      <span style="color:#f92672">apt</span>:
+        <span style="color:#f92672">upgrade</span>: <span style="color:#ae81ff">dist</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Install apt packages</span>
+      <span style="color:#f92672">apt</span>:
+        <span style="color:#f92672">name</span>: [<span style="color:#e6db74">&#39;amass&#39;</span>, <span style="color:#e6db74">&#39;sublist3r&#39;</span>,<span style="color:#e6db74">&#39;gobuster&#39;</span>, <span style="color:#e6db74">&#39;golang-go&#39;</span>, <span style="color:#e6db74">&#39;python-pip-whl&#39;</span>, <span style="color:#e6db74">&#39;python3-pip&#39;</span>, <span style="color:#e6db74">&#39;crackmapexec&#39;</span>, <span style="color:#e6db74">&#39;docker.io&#39;</span>, <span style="color:#e6db74">&#39;virtualbox-guest-x11&#39;</span>, <span style="color:#e6db74">&#39;masscan&#39;</span>, <span style="color:#e6db74">&#39;seclists&#39;</span>]
+        <span style="color:#f92672">state</span>: <span style="color:#ae81ff">latest</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Clone dotfiles repo</span>
+      <span style="color:#f92672">git</span>:
+        <span style="color:#f92672">repo</span>: <span style="color:#e6db74">&#34;https://github.com/bseb/dotfiles.git&#34;</span>
+        <span style="color:#f92672">dest</span>: <span style="color:#ae81ff">/root/dotfiles</span>
+      <span style="color:#f92672">notify</span>:
+        - <span style="color:#ae81ff">config bootstrap</span>
+
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Enable Postgres for Metasploit</span>
+      <span style="color:#f92672">service</span>:
+        <span style="color:#f92672">name</span>: <span style="color:#ae81ff">postgresql</span>
+        <span style="color:#f92672">state</span>: <span style="color:#ae81ff">started</span>
+        <span style="color:#f92672">enabled</span>: <span style="color:#66d9ef">yes</span>
+
+  <span style="color:#f92672">handlers</span>:
+    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">config bootstrap</span>
+      <span style="color:#f92672">shell</span>: <span style="color:#ae81ff">/root/dotfiles/bootstrap.sh</span>
+</code></pre></div><h2 id="cattle-not-pets">Cattle Not Pets</h2>
+<p>After all this configuration building your Vagrant VM is as simple as running <code>vagrant up</code> Notice that this Vagrant configuration will also launch a desktop so you an access all the GUI based tools in Kali. There are two users, vagrant and root who share the password vagrant. You can also use the command <code>vagrant ssh</code> to access your machine via ssh. When you are all done working logging out of the machine and using the command <code>vagrant halt</code> will shut it down.</p>
+<p>Now when your Kali environment starts to get stale, there is an update available, or its Monday and you just can bring yourself to do anything else you can run <code>vagrant destroy</code> followed by <code>vagrant up</code> to get a fresh new Kali install. Another useful command is <code>vagrant provision</code> if you need to re-run your Ansible playbook for any reason.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>I hope you have found this useful. Now a fresh Vagrant evironment is only a few minutes away and you are free to spend your energy on something more interesting than configuring a virtual machine.</p>
+
+    </div>
+    <div class="post-footer">
+      
+    </div>
+  </article>
+
+    </main>
+  </body>
+</html>
